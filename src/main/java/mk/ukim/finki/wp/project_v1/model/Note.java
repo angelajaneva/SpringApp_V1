@@ -1,6 +1,7 @@
 package mk.ukim.finki.wp.project_v1.model;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,6 +16,8 @@ public class Note {
 
     @Id
     @Column(name = "note_id")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     String id;
     String title;
     String description;

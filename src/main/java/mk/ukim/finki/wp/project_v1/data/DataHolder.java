@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,23 +19,26 @@ public class DataHolder {
     public static List<Note> notes = new ArrayList<>();
     public static List<Question> questions = new ArrayList<>();
     public static List<ToDo> toDos = new ArrayList<>();
+    public static List<Comment> comments = new ArrayList<>();
 
     private final JpaStudentRepository studentRepository;
     private final JpaClassRepository classRepository;
     private final JpaNotesRepository notesRepository;
     private final JpaQuestionRepository questionRepository;
     private final JpaTodoRepository todoRepository;
-
-    public static int noteCounter = 22;
+    private final JpaCommentRepository commentRepository;
+    private final JpaReviewRepository reviewRepository;
 
 
     public DataHolder(JpaStudentRepository studentRepository, JpaClassRepository classRepository,
-                      JpaNotesRepository notesRepository, JpaQuestionRepository questionRepository, JpaTodoRepository todoRepository) {
+                      JpaNotesRepository notesRepository, JpaQuestionRepository questionRepository, JpaTodoRepository todoRepository, JpaCommentRepository commentRepository, JpaReviewRepository reviewRepository) {
         this.studentRepository = studentRepository;
         this.classRepository = classRepository;
         this.notesRepository = notesRepository;
         this.questionRepository = questionRepository;
         this.todoRepository = todoRepository;
+        this.commentRepository = commentRepository;
+        this.reviewRepository = reviewRepository;
     }
 
 

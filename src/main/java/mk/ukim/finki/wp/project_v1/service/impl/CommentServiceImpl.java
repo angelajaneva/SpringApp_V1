@@ -34,12 +34,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<Comment> findById(String commentId) {
+    public Optional<Comment> findById(long commentId) {
         return commentRepository.findById(commentId);
     }
 
     @Override
-    public void deleteById(String commentId) {
+    public void deleteById(long commentId) {
         commentRepository.deleteById(commentId);
     }
 

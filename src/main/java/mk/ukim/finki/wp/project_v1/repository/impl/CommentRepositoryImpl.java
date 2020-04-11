@@ -35,12 +35,12 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public Optional<Comment> findById(String commentId) {
+    public Optional<Comment> findById(long commentId) {
         return jpaCommentRepository.findById(commentId);
     }
 
     @Override
-    public void deleteById(String commentId) {
+    public void deleteById(long commentId) {
         jpaCommentRepository.deleteById(commentId);
     }
 

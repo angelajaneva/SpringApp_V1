@@ -1,10 +1,10 @@
 package mk.ukim.finki.wp.project_v1.web.rest;
 
 
-import mk.ukim.finki.wp.project_v1.data.DataHolder;
 import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Note;
 import mk.ukim.finki.wp.project_v1.model.Student;
+import mk.ukim.finki.wp.project_v1.service.ClassService;
 import mk.ukim.finki.wp.project_v1.service.NotesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
@@ -19,9 +19,11 @@ import java.util.List;
 public class NoteApi {
 
     private final NotesService notesService;
+    private final ClassService classService;
 
-    public NoteApi(NotesService notesService) {
+    public NoteApi(NotesService notesService, ClassService classService) {
         this.notesService = notesService;
+        this.classService = classService;
     }
 
     @GetMapping("/notes")
@@ -42,18 +44,21 @@ public class NoteApi {
     @PostMapping("/note")
     @ResponseStatus(HttpStatus.CREATED)
     public Note createNote(@RequestParam String title, @RequestParam String description,
-                           @PathVariable String classId, Student student) {
+                           @RequestParam String classId) {
+        Note note = new Note();
+        Class aClass = classService.findById(classId).orElseThrow(RuntimeException::new);
+        note.setTitle(title);
+        note.setDescription(description);
+        note.setAClass(aClass);
 
-        DataHolder.noteCounter ++;
-        String noteId = "n0" + DataHolder.noteCounter;
-        return notesService.save(new Note());
+        return notesService.save(note);
 
     }
 
     @PatchMapping("/{noteId}")
-    public void editNote(@PathVariable String noteId, @RequestParam String title,
+    public Note editNote(@PathVariable String noteId, @RequestParam String title,
                          @RequestParam String description) {
-        notesService.updateNote(noteId, title, description);
+       return notesService.updateNote(noteId, title, description);
     }
 
     @DeleteMapping("/{noteId}")

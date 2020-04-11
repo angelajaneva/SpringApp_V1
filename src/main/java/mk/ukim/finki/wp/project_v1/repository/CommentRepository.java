@@ -14,9 +14,9 @@ public interface CommentRepository {
 
     Page<Comment> getAllComments(int page, int size);
 
-    Optional<Comment> findById(String commentId);
+    Optional<Comment> findById(long commentId);
 
-    void deleteById(String commentId);
+    void deleteById(long commentId);
 
     List<Comment> findCommentsByQuestion_Id(String questionId);
 
