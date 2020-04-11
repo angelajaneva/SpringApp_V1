@@ -15,7 +15,8 @@ public class Comment {
 
     @Id
     @Column(name = "comment_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "seq", initialValue = 30)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
     private String content;
     private LocalDate createdOn;
@@ -24,4 +25,5 @@ public class Comment {
     private Question question;
     @ManyToOne
     private Student student;
+
 }

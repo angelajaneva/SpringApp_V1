@@ -21,6 +21,14 @@ public class Review {
     private String text;
     private int rated;
 
+    public Review(String text, int rated, Student student, Class aClass, LocalDate createdOn) {
+        this.text = text;
+        this.rated = rated;
+        this.student = student;
+        this.aClass = aClass;
+        this.createdOn = createdOn;
+    }
+
     @ManyToOne
     private Student student;
 

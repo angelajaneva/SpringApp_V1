@@ -41,7 +41,7 @@ public class ToDoApi {
         return toDoService.getUncompleted();
     }
 
-    @PatchMapping("/todo/{todoId}")
+    @PatchMapping("/edit/{todoId}")
     public void edit(@PathVariable String todoId, @RequestParam String text,
                      @RequestParam boolean done) {
         toDoService.updateToDo(todoId, text, done);
@@ -59,9 +59,9 @@ public class ToDoApi {
         return toDoService.save(toDo);
     }
 
-    @DeleteMapping("/todo/{todoId}")
-    public void deleteToDo(@PathVariable String todoId) {
-        toDoService.deleteById(todoId);
-    }
+//    @DeleteMapping("/todo/{todoId}")
+//    public void deleteToDo(@PathVariable String todoId) {
+//        toDoService.deleteById(todoId);
+//    }
 
 }

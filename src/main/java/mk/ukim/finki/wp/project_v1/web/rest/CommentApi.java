@@ -23,6 +23,12 @@ public class CommentApi {
         this.questionService = questionService;
     }
 
+    @GetMapping("/comments")
+    public List<Comment> getAllComments(){
+        return commentService.getAllComments();
+    }
+
+
     @GetMapping("{questionId}/comments")
     public List<Comment> getCommentsForQuestion(@PathVariable String questionId){
         return commentService.findCommentsByQuestion_Id(questionId);

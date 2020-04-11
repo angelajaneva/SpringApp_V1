@@ -23,7 +23,7 @@ public class Student {
     private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @NotFound(action = NotFoundAction.IGNORE)
+//    @NotFound(action = NotFoundAction.IGNORE)
     private List<Class> classes;
 
 //    @OneToMany

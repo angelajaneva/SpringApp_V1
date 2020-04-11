@@ -55,7 +55,7 @@ public class NoteApi {
 
     }
 
-    @PatchMapping("/{noteId}")
+    @PatchMapping("/edit/{noteId}")
     public Note editNote(@PathVariable String noteId, @RequestParam String title,
                          @RequestParam String description) {
        return notesService.updateNote(noteId, title, description);
