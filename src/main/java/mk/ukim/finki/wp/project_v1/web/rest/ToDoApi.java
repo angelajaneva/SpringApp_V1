@@ -42,9 +42,9 @@ public class ToDoApi {
     }
 
     @PatchMapping("/todo/{todoId}")
-    public void edit(@PathVariable String todoId, @RequestParam String text,
+    public ToDo edit(@PathVariable String todoId, @RequestParam String text,
                      @RequestParam boolean done) {
-        toDoService.updateToDo(todoId, text, done);
+       return toDoService.updateToDo(todoId, text, done);
     }
 
     @PostMapping("/todo")
@@ -64,4 +64,9 @@ public class ToDoApi {
         toDoService.deleteById(todoId);
     }
 
+
+    @GetMapping(path = "/todo/search", params = "term")
+    public List<ToDo> searchToDos(@RequestParam String term) {
+        return toDoService.searchTermInToDo(term);
+    }
 }

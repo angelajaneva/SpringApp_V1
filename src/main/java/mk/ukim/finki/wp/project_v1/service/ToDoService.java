@@ -23,4 +23,6 @@ public interface ToDoService {
     List<ToDo> getUncompleted();
 
     ToDo updateToDo (String id, String text, boolean done);
+
+    List<ToDo> searchTermInToDo(String term);
 }

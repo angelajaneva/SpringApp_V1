@@ -28,4 +28,12 @@ public class Review {
     @ManyToOne
     private Class aClass;
     private LocalDate createdOn;
+
+    public Review(String text, int rated, Student student, Class aClass, LocalDate createdOn) {
+        this.text = text;
+        this.rated = rated;
+        this.student = student;
+        this.aClass = aClass;
+        this.createdOn = createdOn;
+    }
 }

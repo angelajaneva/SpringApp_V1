@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
@@ -62,4 +63,14 @@ public class ToDoServiceImpl implements ToDoService {
         toDoRepository.save(toDo);
         return toDo;
     }
+
+
+    @Override
+    public List<ToDo> searchTermInToDo(String term) {
+
+        return this.getAllTodos().stream()
+                .filter(toDo -> toDo.getText().toLowerCase().contains(term))
+                .collect(Collectors.toList());
+    }
 }
+
