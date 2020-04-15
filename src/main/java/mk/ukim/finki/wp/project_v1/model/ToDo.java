@@ -2,6 +2,8 @@ package mk.ukim.finki.wp.project_v1.model;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,15 +16,21 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "todo")
 public class ToDo {
 
+    @Field(value = "todoId")
     @Id
-    @Column(name = "todoId")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
+    @Field(value = "date")
     private LocalDate date;
+
+    @Field(value = "text")
     private String text;
+
+    @Field(value = "completed")
     private boolean completed;
 }

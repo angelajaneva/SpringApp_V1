@@ -2,28 +2,36 @@ package mk.ukim.finki.wp.project_v1.model;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Setter
 @Getter
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Document(collection = "notes")
 public class Note {
 
     @Id
-    @Column(name = "note_id")
+    @Field(value = "note_id")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     String id;
+
+    @Field(value = "title")
     String title;
+
+    @Field(value = "description")
     String description;
 
+    @Field(value = "aClass")
     @ManyToOne
     Class aClass;
+
+    @Field(value = "student")
     @ManyToOne
     Student student;
 

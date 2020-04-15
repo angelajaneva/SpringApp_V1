@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,17 +16,20 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "class")
 public class Class {
 
     @Id
-    @Column(name = "class_id")
+    @Field
     private String id;
+
+    @Field(value = "name")
     private String name;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "classes", fetch = FetchType.EAGER)
     @NotFound(action = NotFoundAction.IGNORE)
+    @Field(value = "students")
     private List<Student> students;
 
 //    @OneToMany

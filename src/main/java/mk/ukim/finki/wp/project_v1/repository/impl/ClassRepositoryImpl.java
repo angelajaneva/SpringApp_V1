@@ -1,7 +1,7 @@
 package mk.ukim.finki.wp.project_v1.repository.impl;
 
 import mk.ukim.finki.wp.project_v1.repository.ClassRepository;
-import mk.ukim.finki.wp.project_v1.repository.jpa.JpaClassRepository;
+import mk.ukim.finki.wp.project_v1.repository.mongo.MongoClassRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -13,44 +13,44 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ClassRepositoryImpl implements ClassRepository {
 
-    private final JpaClassRepository jpaClassRepository;
+    private final MongoClassRepository mongoClassRepository;
 
-    public ClassRepositoryImpl(JpaClassRepository jpaClassRepository) {
-        this.jpaClassRepository = jpaClassRepository;
+    public ClassRepositoryImpl(MongoClassRepository mongoClassRepository) {
+        this.mongoClassRepository = mongoClassRepository;
     }
 
     @Override
     public List<Class> getAllClasses() {
-        return jpaClassRepository.findAll();
+        return mongoClassRepository.findAll();
     }
 
     @Override
     public Class save(Class aClass) {
-        return jpaClassRepository.save(aClass);
+        return mongoClassRepository.save(aClass);
     }
 
     @Override
     public Page<Class> getAllClasses(int page, int size) {
-        return jpaClassRepository.findAll(PageRequest.of(page, size));
+        return mongoClassRepository.findAll(PageRequest.of(page, size));
     }
 
     @Override
     public Optional<Class> findById(String classId) {
-        return jpaClassRepository.findById(classId);
+        return mongoClassRepository.findById(classId);
     }
 
     @Override
     public void deleteById(String classId) {
-        jpaClassRepository.deleteById(classId);
+        mongoClassRepository.deleteById(classId);
     }
 
     @Override
     public List<Class> findClassesByStudents_Id(String studentId) {
-        return jpaClassRepository.findClassesByStudents_Id(studentId);
+        return mongoClassRepository.findClassesByStudents_Id(studentId);
     }
 
     @Override
     public Class findByName(String className) {
-        return jpaClassRepository.findByName(className);
+        return mongoClassRepository.findByName(className);
     }
 }

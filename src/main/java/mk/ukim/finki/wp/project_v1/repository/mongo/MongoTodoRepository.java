@@ -1,12 +1,12 @@
-package mk.ukim.finki.wp.project_v1.repository.jpa;
+package mk.ukim.finki.wp.project_v1.repository.mongo;
 
 import mk.ukim.finki.wp.project_v1.model.ToDo;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
-public interface JpaTodoRepository extends JpaRepository<ToDo, String> {
+public interface MongoTodoRepository extends MongoRepository<ToDo, String> {
 
 
     @Query("select t from ToDo t where t.completed = true ")

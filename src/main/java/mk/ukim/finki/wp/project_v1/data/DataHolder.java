@@ -1,3 +1,4 @@
+/*
 package mk.ukim.finki.wp.project_v1.data;
 
 import mk.ukim.finki.wp.project_v1.model.*;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 
 import javax.annotation.PostConstruct;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +29,12 @@ public class DataHolder {
     private final JpaNotesRepository notesRepository;
     private final JpaQuestionRepository questionRepository;
     private final JpaTodoRepository todoRepository;
-    private final JpaCommentRepository commentRepository;
+    private final MongoCommentRepository commentRepository;
     private final JpaReviewRepository reviewRepository;
 
 
     public DataHolder(JpaStudentRepository studentRepository, JpaClassRepository classRepository,
-                      JpaNotesRepository notesRepository, JpaQuestionRepository questionRepository, JpaTodoRepository todoRepository, JpaCommentRepository commentRepository, JpaReviewRepository reviewRepository) {
+                      JpaNotesRepository notesRepository, JpaQuestionRepository questionRepository, JpaTodoRepository todoRepository, MongoCommentRepository commentRepository, JpaReviewRepository reviewRepository) {
         this.studentRepository = studentRepository;
         this.classRepository = classRepository;
         this.notesRepository = notesRepository;
@@ -429,3 +429,6 @@ public class DataHolder {
     }
 
 }
+*/
+
+
