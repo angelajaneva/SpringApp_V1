@@ -35,4 +35,11 @@ public class Student {
         this.getClasses().add(aClass);
         aClass.getStudents().add(this);
     }
+
+
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 }

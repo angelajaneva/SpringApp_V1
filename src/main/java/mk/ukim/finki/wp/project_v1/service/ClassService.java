@@ -20,4 +20,6 @@ public interface ClassService {
 
     List<Class> findClassesByStudents_Id(String studentId);
 
+    Class findByName(String className);
+
 }

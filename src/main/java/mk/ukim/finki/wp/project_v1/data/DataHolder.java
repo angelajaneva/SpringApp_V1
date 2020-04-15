@@ -426,7 +426,6 @@ public class DataHolder {
             commentRepository.saveAll(comments);
             reviewRepository.saveAll(reviews);
         }
-
     }
 
 }

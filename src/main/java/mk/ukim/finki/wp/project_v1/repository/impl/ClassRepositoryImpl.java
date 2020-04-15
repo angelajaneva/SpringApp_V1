@@ -48,4 +48,9 @@ public class ClassRepositoryImpl implements ClassRepository {
     public List<Class> findClassesByStudents_Id(String studentId) {
         return jpaClassRepository.findClassesByStudents_Id(studentId);
     }
+
+    @Override
+    public Class findByName(String className) {
+        return jpaClassRepository.findByName(className);
+    }
 }

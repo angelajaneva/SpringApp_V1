@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RequestMapping(produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class NoteApi {
 
@@ -55,8 +55,8 @@ public class NoteApi {
 
     }
 
-    @PatchMapping("/{noteId}")
-    public Note editNote(@PathVariable String noteId, @RequestParam String title,
+    @PatchMapping("/note/edit")
+    public Note editNote(@RequestParam String noteId, @RequestParam String classId, @RequestParam String title,
                          @RequestParam String description) {
        return notesService.updateNote(noteId, title, description);
     }
@@ -64,5 +64,10 @@ public class NoteApi {
     @DeleteMapping("/{noteId}")
     public void deleteNote(@PathVariable String noteId) {
         notesService.deleteById(noteId);
+    }
+
+    @GetMapping(value ="/notes", params = "term")
+    public List<Note> searchNotes(@RequestParam String term){
+        return notesService.searchNotes(term);
     }
 }

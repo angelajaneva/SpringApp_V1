@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NotesServiceImpl implements NotesService {
@@ -59,4 +60,11 @@ public class NotesServiceImpl implements NotesService {
         return note;
     }
 
+    @Override
+    public List<Note> searchNotes(String term) {
+        return this.getAllNotes().stream()
+                .filter(note -> note.getDescription().toLowerCase().contains(term)
+                        || note.getTitle().contains(term))
+                .collect(Collectors.toList());
+    }
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface JpaClassRepository extends JpaRepository<Class, String> {
 
     List<Class> findClassesByStudents_Id(String studentId);
+    Class findByName(String className);
 }

@@ -32,6 +32,7 @@ public class CommentApi {
     public Comment newComment(@PathVariable String questionId, @RequestParam String content){
         //@RequestParam String studentId
         Comment comment = new Comment();
+        commentService.save(comment);
 
         Question question = questionService.findById(questionId).orElseThrow(RuntimeException::new);
         comment.setQuestion(question);

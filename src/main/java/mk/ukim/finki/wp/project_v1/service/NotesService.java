@@ -21,4 +21,6 @@ public interface NotesService {
     List<Note> getNotesByAClass(String AClass);
 
     Note updateNote(String id, String title, String description);
+
+    List<Note> searchNotes (String term);
 }
