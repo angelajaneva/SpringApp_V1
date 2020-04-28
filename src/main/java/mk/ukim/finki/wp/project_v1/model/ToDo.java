@@ -19,7 +19,6 @@ import java.time.LocalDate;
 @Document(collection = "todo")
 public class ToDo {
 
-    @Field(value = "todoId")
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

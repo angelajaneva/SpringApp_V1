@@ -18,10 +18,15 @@ public class ClassApi {
         this.classService = classService;
     }
 
+
     @GetMapping("/{classId}")
     public String getClassName(@PathVariable String classId) throws Exception {
         Class AClass = classService.findById(classId).orElseThrow(Exception::new);
         return AClass.getName();
     }
 
+    @GetMapping("/student/{studentId}")
+    public List<Class> findClassesByStudentsId (@PathVariable String studentId){
+        return classService.findClassesByStudents_Id(studentId);
+    }
 }

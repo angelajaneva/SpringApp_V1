@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Document(collection = "reviews")
 public class Review {
 
-    @Field(value = "review_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,18 +30,11 @@ public class Review {
     private Student student;
 
     //mi trebat site reviews za class, znaci vo Class kje stavam reviews
-    @Field(value = "aClass")
+    @Field(value = "aclass")
     @ManyToOne
     private Class aClass;
 
     @Field(value = "createdOn")
     private LocalDate createdOn;
 
-    public Review(String text, int rated, Student student, Class aClass, LocalDate createdOn) {
-        this.text = text;
-        this.rated = rated;
-        this.student = student;
-        this.aClass = aClass;
-        this.createdOn = createdOn;
-    }
 }

@@ -58,6 +58,7 @@ public class NoteApi {
     @PatchMapping("/note/edit")
     public Note editNote(@RequestParam String noteId, @RequestParam String classId, @RequestParam String title,
                          @RequestParam String description) {
+        System.out.println("PRINT       " + noteId);
        return notesService.updateNote(noteId, title, description);
     }
 

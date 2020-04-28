@@ -19,15 +19,16 @@ import java.util.List;
 @Document(collection = "class")
 public class Class {
 
-    @Id
-    @Field
+
+
+    @Field(value = "id")
     private String id;
 
     @Field(value = "name")
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "classes", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NotFound(action = NotFoundAction.IGNORE)
     @Field(value = "students")
     private List<Student> students;

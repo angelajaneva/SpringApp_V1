@@ -17,7 +17,7 @@ import java.util.List;
 @Document(collection = "students")
 public class Student {
 
-    @Field(value = "student_id")
+    @Field(value = "id")
     @Id
     private String id;
 

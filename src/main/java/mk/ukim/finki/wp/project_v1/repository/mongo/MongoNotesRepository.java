@@ -7,8 +7,5 @@ import java.util.List;
 
 public interface MongoNotesRepository extends MongoRepository<Note, String> {
 
-
-//    @Query("select n from Note n where n.AClass like :name")
-     List<Note> getNotesByaClass_Id(String classId);
-
+    List<Note> getNotesByaClass_Id(String classId);
 }

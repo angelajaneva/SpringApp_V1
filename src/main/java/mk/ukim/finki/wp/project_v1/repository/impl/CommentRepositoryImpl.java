@@ -46,6 +46,6 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> findCommentsByQuestion_Id(String questionId) {
-        return mongoCommentRepository.findCommentsByQuestion_Id(questionId);
+        return mongoCommentRepository.findByQuestion_Id(questionId);
     }
 }

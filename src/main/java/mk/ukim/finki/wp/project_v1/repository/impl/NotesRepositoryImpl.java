@@ -2,8 +2,8 @@ package mk.ukim.finki.wp.project_v1.repository.impl;
 
 import mk.ukim.finki.wp.project_v1.model.Note;
 import mk.ukim.finki.wp.project_v1.repository.NotesRepository;
-import mk.ukim.finki.wp.project_v1.repository.mongo.MongoClassRepository;
 import mk.ukim.finki.wp.project_v1.repository.mongo.MongoNotesRepository;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;

@@ -8,11 +8,10 @@ import java.util.List;
 
 public interface MongoTodoRepository extends MongoRepository<ToDo, String> {
 
-
-    @Query("select t from ToDo t where t.completed = true ")
+    @Query(value =  "{ 'completed' : 'true'}")
     List<ToDo> getCompleted();
 
-    @Query("select t from ToDo t where t.completed = false ")
+    @Query(value =  "{ 'completed' : 'false'}")
     List<ToDo> getUncompleted();
 
 }

@@ -23,14 +23,21 @@ public class CommentApi {
         this.questionService = questionService;
     }
 
+    @GetMapping("/comments")
+    public List<Comment> getAllComments() {
+     return    commentService.getAllComments();
+    }
+
     @GetMapping("{questionId}/comments")
-    public List<Comment> getCommentsForQuestion(@PathVariable String questionId){
+    public List<Comment> getCommentsForQuestion(@PathVariable String questionId) {
         return commentService.findCommentsByQuestion_Id(questionId);
     }
 
     @PostMapping("/comments/{questionId}")
-    public Comment newComment(@PathVariable String questionId, @RequestParam String content){
+    public Comment newComment(@PathVariable String questionId, @RequestParam String content) {
         //@RequestParam String studentId
+
+        //vo service podobro e da stoi
         Comment comment = new Comment();
         commentService.save(comment);
 

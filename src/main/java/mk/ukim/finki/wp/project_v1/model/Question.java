@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "questions")
+@Document(collection = "question")
 public class Question {
 
     @Id
-    @Field(value = "question_id")
+    @Field(value = "id")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
@@ -28,7 +28,7 @@ public class Question {
     @ManyToOne
     private Student student;
 
-    @Field(value = "aClass")
+    @Field(value = "aclass")
     @ManyToOne
     private Class aClass;
 }
