@@ -2,21 +2,23 @@ package mk.ukim.finki.wp.project_v1.repository;
 
 import mk.ukim.finki.wp.project_v1.model.Question;
 import org.springframework.data.domain.Page;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface QuestionRepository {
 
-    List<Question> getAllQuestions();
+    Flux<Question> getAllQuestions();
 
-    Question save(Question question);
+    Mono<Question> save(Question question);
 
     Page<Question> getAllQuestions(int page, int size);
 
-    Optional<Question> findById(String questionId);
+    Mono<Question> findById(String questionId);
 
-    void deleteById(String questionId);
+    Mono<Void> deleteById(String questionId);
 
-    List<Question> findQuestionsByAClass(String AClass);
+    Flux<Question> findQuestionsByAClass(String AClass);
 }

@@ -6,6 +6,8 @@ import mk.ukim.finki.wp.project_v1.repository.StudentRepository;
 import mk.ukim.finki.wp.project_v1.service.StudentService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,32 +22,33 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public Flux<Student> getAllStudents() {
         return studentRepository.getAllStudents();
     }
 
     @Override
-    public Student save(Student student) {
+    public Mono<Student> save(Student student) {
         return studentRepository.save(student);
     }
 
     @Override
     public Page<Student> getAllStudents(int page, int size) {
-        return studentRepository.getAllStudents(page, size);
+        return null;
     }
 
     @Override
-    public Optional<Student> findById(String studentId) {
+    public Mono<Student> findById(String studentId) {
         return studentRepository.findById(studentId);
     }
 
     @Override
-    public void deleteById(String studentId) {
-        studentRepository.deleteById(studentId);
+    public Mono<Void> deleteById(String studentId) {
+
+        return studentRepository.deleteById(studentId);
     }
 
-    @Override
-    public List<Class> findClassesForStudent(String studentId) {
-        return studentRepository.findClassesForStudent(studentId);
-    }
+//    @Override
+//    public Flux<Class> findClassesForStudent(String studentId) {
+//        return studentRepository.findClassesForStudent(studentId);
+//    }
 }

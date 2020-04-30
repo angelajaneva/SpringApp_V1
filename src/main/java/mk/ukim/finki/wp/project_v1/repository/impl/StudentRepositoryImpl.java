@@ -7,6 +7,8 @@ import mk.ukim.finki.wp.project_v1.repository.mongo.MongoStudentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,32 +23,32 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public Flux<Student> getAllStudents() {
         return mongoStudentRepository.findAll();
     }
 
     @Override
-    public Student save(Student student) {
+    public Mono<Student> save(Student student) {
         return mongoStudentRepository.save(student);
     }
 
     @Override
-    public Page<Student> getAllStudents(int page, int size) {
-        return mongoStudentRepository.findAll(PageRequest.of(page, size));
+    public Mono<Page<Student>> getAllStudents(int page, int size) {
+        return null;
     }
 
     @Override
-    public Optional<Student> findById(String studentId) {
+    public Mono<Student> findById(String studentId) {
         return mongoStudentRepository.findById(studentId);
     }
 
     @Override
-    public void deleteById(String studentId) {
-        mongoStudentRepository.deleteById(studentId);
+    public Mono<Void> deleteById(String studentId) {
+        return mongoStudentRepository.deleteById(studentId);
     }
 
-    @Override
-    public List<Class> findClassesForStudent(String studentId) {
-        return mongoStudentRepository.findClassesForStudent(studentId);
-    }
+//    @Override
+//    public Flux<Class> findClassesForStudent(String studentId) {
+//        return mongoStudentRepository.findClassesForStudent(studentId);
+//    }
 }

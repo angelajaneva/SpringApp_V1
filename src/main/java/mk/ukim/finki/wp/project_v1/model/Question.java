@@ -16,7 +16,6 @@ import javax.persistence.*;
 public class Question {
 
     @Id
-    @Field(value = "id")
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;

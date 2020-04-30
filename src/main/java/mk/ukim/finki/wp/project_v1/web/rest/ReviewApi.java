@@ -57,7 +57,7 @@ public class ReviewApi {
         review.setCreatedOn(LocalDate.now());
         review.setAClass(aClass);
         //treba so security da se rese sega neka go vaka
-        review.setStudent(studentService.findById("S17001").get());
+//        review.setStudent(studentService.findById("S17001").get());
         System.out.println(aClass.getName());
         return reviewService.save(review);
     }

@@ -6,6 +6,8 @@ import mk.ukim.finki.wp.project_v1.service.CommentService;
 import mk.ukim.finki.wp.project_v1.service.QuestionService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,28 +26,28 @@ public class CommentApi {
     }
 
     @GetMapping("/comments")
-    public List<Comment> getAllComments() {
-     return    commentService.getAllComments();
+    public Flux<Comment> getAllComments() {
+        return commentService.getAllComments();
     }
 
     @GetMapping("{questionId}/comments")
-    public List<Comment> getCommentsForQuestion(@PathVariable String questionId) {
+    public Flux<Comment> getCommentsForQuestion(@PathVariable String questionId) {
         return commentService.findCommentsByQuestion_Id(questionId);
     }
 
     @PostMapping("/comments/{questionId}")
-    public Comment newComment(@PathVariable String questionId, @RequestParam String content) {
+    public Mono<Comment> newComment(@PathVariable String questionId, @RequestParam String content) {
         //@RequestParam String studentId
 
         //vo service podobro e da stoi
         Comment comment = new Comment();
-        commentService.save(comment);
+        System.out.println(questionId);
 
-        Question question = questionService.findById(questionId).orElseThrow(RuntimeException::new);
-        comment.setQuestion(question);
-        comment.setContent(content);
-        comment.setCreatedOn(LocalDate.now());
-
-        return commentService.save(comment);
+        return questionService.findById(questionId).flatMap(question1 -> {
+            comment.setQuestion(question1);
+            comment.setContent(content);
+            comment.setCreatedOn(LocalDate.now());
+            return commentService.save(comment);
+        });
     }
 }

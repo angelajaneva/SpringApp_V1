@@ -1,11 +1,11 @@
 package mk.ukim.finki.wp.project_v1.repository.mongo;
 
 import mk.ukim.finki.wp.project_v1.model.Note;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 
-import java.util.List;
 
-public interface MongoNotesRepository extends MongoRepository<Note, String> {
+public interface MongoNotesRepository extends ReactiveMongoRepository<Note, String> {
 
-    List<Note> getNotesByaClass_Id(String classId);
+    Flux<Note> getNotesByaClass_Id(String classId);
 }

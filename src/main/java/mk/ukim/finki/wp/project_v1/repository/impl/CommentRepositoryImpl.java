@@ -3,12 +3,9 @@ package mk.ukim.finki.wp.project_v1.repository.impl;
 import mk.ukim.finki.wp.project_v1.model.Comment;
 import mk.ukim.finki.wp.project_v1.repository.CommentRepository;
 import mk.ukim.finki.wp.project_v1.repository.mongo.MongoCommentRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {
@@ -20,32 +17,27 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getAllComments() {
+    public Flux<Comment> getAllComments() {
         return mongoCommentRepository.findAll();
     }
 
     @Override
-    public Comment save(Comment comment) {
+    public Mono<Comment> save(Comment comment) {
         return mongoCommentRepository.save(comment);
     }
 
     @Override
-    public Page<Comment> getAllComments(int page, int size) {
-        return mongoCommentRepository.findAll(PageRequest.of(page, size));
-    }
-
-    @Override
-    public Optional<Comment> findById(long commentId) {
+    public Mono<Comment> findById(String commentId) {
         return mongoCommentRepository.findById(commentId);
     }
 
     @Override
-    public void deleteById(long commentId) {
-        mongoCommentRepository.deleteById(commentId);
+    public Mono<Void> deleteById(String commentId) {
+        return mongoCommentRepository.deleteById(commentId);
     }
 
     @Override
-    public List<Comment> findCommentsByQuestion_Id(String questionId) {
-        return mongoCommentRepository.findByQuestion_Id(questionId);
+    public Flux<Comment> findCommentsByQuestion_Id(String questionId) {
+        return mongoCommentRepository.getCommentsByQuestion_Id(questionId);
     }
 }

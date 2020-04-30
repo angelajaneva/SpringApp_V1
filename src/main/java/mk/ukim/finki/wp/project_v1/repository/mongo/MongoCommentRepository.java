@@ -1,11 +1,12 @@
 package mk.ukim.finki.wp.project_v1.repository.mongo;
 
 import mk.ukim.finki.wp.project_v1.model.Comment;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 
-import java.util.List;
 
-public interface MongoCommentRepository extends MongoRepository<Comment, Long> {
 
-    List<Comment> findByQuestion_Id(String questionId);
+public interface MongoCommentRepository extends ReactiveMongoRepository<Comment, String> {
+
+    Flux<Comment> getCommentsByQuestion_Id(String questionId);
 }

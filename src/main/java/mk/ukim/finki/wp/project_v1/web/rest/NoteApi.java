@@ -9,6 +9,8 @@ import mk.ukim.finki.wp.project_v1.service.NotesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -27,23 +29,23 @@ public class NoteApi {
     }
 
     @GetMapping("/notes")
-    public List<Note> getAllNotes() {
+    public Flux<Note> getAllNotes() {
         return notesService.getAllNotes();
     }
 
     @GetMapping("/note/{noteId}")
-    public Note getNoteById(@PathVariable String noteId) {
-        return notesService.findById(noteId).orElseThrow(RuntimeException::new);
+    public Mono<Note> getNoteById(@PathVariable String noteId) {
+        return notesService.findById(noteId);
     }
 
     @GetMapping("/notes/{classId}")
-    public List<Note> getNotesForClass(@PathVariable String classId) {
+    public Flux<Note> getNotesForClass(@PathVariable String classId) {
         return notesService.getNotesByAClass(classId);
     }
 
     @PostMapping("/note")
     @ResponseStatus(HttpStatus.CREATED)
-    public Note createNote(@RequestParam String title, @RequestParam String description,
+    public Mono<Note> createNote(@RequestParam String title, @RequestParam String description,
                            @RequestParam String classId) {
         Note note = new Note();
         Class aClass = classService.findById(classId).orElseThrow(RuntimeException::new);
@@ -56,19 +58,19 @@ public class NoteApi {
     }
 
     @PatchMapping("/note/edit")
-    public Note editNote(@RequestParam String noteId, @RequestParam String classId, @RequestParam String title,
-                         @RequestParam String description) {
-        System.out.println("PRINT       " + noteId);
-       return notesService.updateNote(noteId, title, description);
+    public Mono<Note> editNote(@RequestParam String noteId, @RequestParam String classId, @RequestParam String title,
+                               @RequestParam String description) {
+
+        return notesService.updateNote(noteId, title, description);
     }
 
     @DeleteMapping("/{noteId}")
-    public void deleteNote(@PathVariable String noteId) {
-        notesService.deleteById(noteId);
+    public Mono<Void> deleteNote(@PathVariable String noteId) {
+        return notesService.deleteById(noteId);
     }
 
-    @GetMapping(value ="/notes", params = "term")
-    public List<Note> searchNotes(@RequestParam String term){
+    @GetMapping(value = "/notes", params = "term")
+    public Flux<Note> searchNotes(@RequestParam String term) {
         return notesService.searchNotes(term);
     }
 }

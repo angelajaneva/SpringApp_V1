@@ -5,6 +5,8 @@ import mk.ukim.finki.wp.project_v1.repository.ToDoRepository;
 import mk.ukim.finki.wp.project_v1.service.ToDoService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,56 +23,50 @@ public class ToDoServiceImpl implements ToDoService {
 
 
     @Override
-    public List<ToDo> getAllTodos() {
+    public Flux<ToDo> getAllTodos() {
         return toDoRepository.getAllTodos();
     }
 
     @Override
-    public ToDo save(ToDo toDo) {
+    public Mono<ToDo> save(ToDo toDo) {
         return toDoRepository.save(toDo);
     }
 
     @Override
-    public Page<ToDo> getAllToDos(int page, int size) {
-        return toDoRepository.getAllStudents(page, size);
-    }
-
-    @Override
-    public Optional<ToDo> findById(String todoId) {
+    public Mono<ToDo> findById(String todoId) {
         return toDoRepository.findById(todoId);
     }
 
     @Override
-    public void deleteById(String todoId) {
-        toDoRepository.deleteById(todoId);
+    public Mono<Void> deleteById(String todoId) {
+        return toDoRepository.deleteById(todoId);
     }
 
     @Override
-    public List<ToDo> getCompleted() {
+    public Flux<ToDo> getCompleted() {
         return toDoRepository.getCompleted();
     }
 
     @Override
-    public List<ToDo> getUncompleted() {
+    public Flux<ToDo> getUncompleted() {
         return toDoRepository.getUncompleted();
     }
 
     @Override
-    public ToDo updateToDo(String id, String text, boolean done) {
-        ToDo toDo = toDoRepository.findById(id).orElseThrow(RuntimeException::new);
-        toDo.setText(text);
-        toDo.setCompleted(done);
-        toDoRepository.save(toDo);
-        return toDo;
+    public Mono<ToDo> updateToDo(String id, String text, boolean done) {
+        return toDoRepository.findById(id).flatMap(todo -> {
+            todo.setText(text);
+            todo.setCompleted(done);
+            return toDoRepository.save(todo);
+        });
     }
 
 
     @Override
-    public List<ToDo> searchTermInToDo(String term) {
+    public Flux<ToDo> searchTermInToDo(String term) {
 
-        return this.getAllTodos().stream()
-                .filter(toDo -> toDo.getText().toLowerCase().contains(term))
-                .collect(Collectors.toList());
+        return this.getAllTodos()
+                .filter(toDo -> toDo.getText().toLowerCase().contains(term));
     }
 }
 

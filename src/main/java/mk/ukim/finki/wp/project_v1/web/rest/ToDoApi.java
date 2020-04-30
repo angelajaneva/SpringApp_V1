@@ -5,6 +5,8 @@ import mk.ukim.finki.wp.project_v1.service.ToDoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,51 +24,52 @@ public class ToDoApi {
     }
 
     @GetMapping("/todos")
-    public List<ToDo> getAll() {
+    public Flux<ToDo> getAll() {
         return toDoService.getAllTodos();
     }
 
     @GetMapping("/todo/{todoId}")
-    public ToDo getById(@PathVariable String todoId) {
-        return toDoService.findById(todoId).orElseThrow(RuntimeException::new);
+    public Mono<ToDo> getById(@PathVariable String todoId) {
+        return toDoService.findById(todoId);
     }
 
     @GetMapping("/todos/completed")
-    public List<ToDo> getCompleted() {
+    public Flux<ToDo> getCompleted() {
         return toDoService.getCompleted();
     }
 
     @GetMapping("/todos/uncompleted")
-    public List<ToDo> getUncompleted() {
+    public Flux<ToDo> getUncompleted() {
         return toDoService.getUncompleted();
     }
 
     @PatchMapping("/todo/{todoId}")
-    public ToDo edit(@PathVariable String todoId, @RequestParam String text,
+    public Mono<ToDo> edit(@PathVariable String todoId, @RequestParam String text,
                      @RequestParam boolean done) {
        return toDoService.updateToDo(todoId, text, done);
     }
 
     @PostMapping("/todo")
     @ResponseStatus(HttpStatus.CREATED)
-    public ToDo create(@RequestParam String text) {
+    public Mono<ToDo> create(@RequestParam String text) {
         ToDo toDo = new ToDo();
 
         toDo.setText(text);
         toDo.setCompleted(false);
         toDo.setDate(LocalDate.now());
 
+
         return toDoService.save(toDo);
     }
 
     @DeleteMapping("/todo/{todoId}")
-    public void deleteToDo(@PathVariable String todoId) {
-        toDoService.deleteById(todoId);
+    public Mono<Void> deleteToDo(@PathVariable String todoId) {
+       return toDoService.deleteById(todoId);
     }
 
 
     @GetMapping(path = "/todo/search", params = "term")
-    public List<ToDo> searchToDos(@RequestParam String term) {
+    public Flux<ToDo> searchToDos(@RequestParam String term) {
         return toDoService.searchTermInToDo(term);
     }
 }

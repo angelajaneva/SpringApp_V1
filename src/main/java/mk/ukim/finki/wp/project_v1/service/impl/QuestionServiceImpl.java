@@ -5,6 +5,8 @@ import mk.ukim.finki.wp.project_v1.repository.QuestionRepository;
 import mk.ukim.finki.wp.project_v1.service.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +21,12 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> getAllQuestions() {
+    public Flux<Question> getAllQuestions() {
         return questionRepository.getAllQuestions();
     }
 
     @Override
-    public Question save(Question question) {
+    public Mono<Question> save(Question question) {
         return questionRepository.save(question);
     }
 
@@ -34,17 +36,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Optional<Question> findById(String questionId) {
+    public Mono<Question> findById(String questionId) {
         return questionRepository.findById(questionId);
     }
 
     @Override
-    public void deleteById(String questionId) {
-        questionRepository.deleteById(questionId);
+    public Mono<Void> deleteById(String questionId) {
+        return questionRepository.deleteById(questionId);
     }
 
     @Override
-    public List<Question> findQuestionByAClass_Id(String AClass) {
+    public Flux<Question> findQuestionByAClass_Id(String AClass) {
         return questionRepository.findQuestionsByAClass(AClass);
     }
 }

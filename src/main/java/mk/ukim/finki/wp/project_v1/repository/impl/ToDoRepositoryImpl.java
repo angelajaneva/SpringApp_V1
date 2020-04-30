@@ -3,12 +3,10 @@ package mk.ukim.finki.wp.project_v1.repository.impl;
 import mk.ukim.finki.wp.project_v1.model.ToDo;
 import mk.ukim.finki.wp.project_v1.repository.ToDoRepository;
 import mk.ukim.finki.wp.project_v1.repository.mongo.MongoTodoRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ToDoRepositoryImpl implements ToDoRepository {
@@ -21,37 +19,33 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 
 
     @Override
-    public List<ToDo> getAllTodos() {
+    public Flux<ToDo> getAllTodos() {
         return mongoTodoRepository.findAll();
     }
 
     @Override
-    public ToDo save(ToDo toDo) {
+    public Mono<ToDo> save(ToDo toDo) {
         return mongoTodoRepository.save(toDo);
     }
 
-    @Override
-    public Page<ToDo> getAllStudents(int page, int size) {
-        return mongoTodoRepository.findAll(PageRequest.of(page, size));
-    }
 
     @Override
-    public Optional<ToDo> findById(String todoId) {
+    public Mono<ToDo> findById(String todoId) {
         return mongoTodoRepository.findById(todoId);
     }
 
     @Override
-    public void deleteById(String todoId) {
-        mongoTodoRepository.deleteById(todoId);
+    public Mono<Void> deleteById(String todoId) {
+        return mongoTodoRepository.deleteById(todoId);
     }
 
     @Override
-    public List<ToDo> getCompleted() {
+    public Flux<ToDo> getCompleted() {
         return mongoTodoRepository.getCompleted();
     }
 
     @Override
-    public List<ToDo> getUncompleted() {
+    public Flux<ToDo> getUncompleted() {
         return mongoTodoRepository.getUncompleted();
     }
 }

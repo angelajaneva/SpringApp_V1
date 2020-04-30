@@ -3,13 +3,9 @@ package mk.ukim.finki.wp.project_v1.repository.impl;
 import mk.ukim.finki.wp.project_v1.model.Note;
 import mk.ukim.finki.wp.project_v1.repository.NotesRepository;
 import mk.ukim.finki.wp.project_v1.repository.mongo.MongoNotesRepository;
-import org.bson.types.ObjectId;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 public class NotesRepositoryImpl implements NotesRepository {
@@ -21,32 +17,27 @@ public class NotesRepositoryImpl implements NotesRepository {
     }
 
     @Override
-    public List<Note> getAllNotes() {
+    public Flux<Note> getAllNotes() {
         return mongoNotesRepository.findAll();
     }
 
     @Override
-    public Note save(Note note) {
+    public Mono<Note> save(Note note) {
         return mongoNotesRepository.save(note);
     }
 
     @Override
-    public Page<Note> getAllNotes(int page, int size) {
-        return mongoNotesRepository.findAll(PageRequest.of(page, size));
-    }
-
-    @Override
-    public Optional<Note> findById(String noteId) {
+    public Mono<Note> findById(String noteId) {
         return mongoNotesRepository.findById(noteId);
     }
 
     @Override
-    public void deleteById(String noteId) {
-        mongoNotesRepository.deleteById(noteId);
+    public Mono<Void> deleteById(String noteId) {
+        return mongoNotesRepository.deleteById(noteId);
     }
 
     @Override
-    public List<Note> getNotesByAClass(String classId) {
+    public Flux<Note> getNotesByAClass(String classId) {
         return mongoNotesRepository.getNotesByaClass_Id(classId);
     }
 }

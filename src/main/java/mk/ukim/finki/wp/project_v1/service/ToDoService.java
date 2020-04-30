@@ -1,28 +1,24 @@
 package mk.ukim.finki.wp.project_v1.service;
 
 import mk.ukim.finki.wp.project_v1.model.ToDo;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface ToDoService {
 
-    List<ToDo> getAllTodos();
+    Flux<ToDo> getAllTodos();
 
-    ToDo save(ToDo toDo);
+    Mono<ToDo> save(ToDo toDo);
 
-    Page<ToDo> getAllToDos(int page, int size);
+    Mono<ToDo> findById(String todoId);
 
-    Optional<ToDo> findById(String todoId);
+    Mono<Void> deleteById(String todoId);
 
-    void deleteById(String todoId);
+    Flux<ToDo> getCompleted();
 
-    List<ToDo> getCompleted();
+    Flux<ToDo> getUncompleted();
 
-    List<ToDo> getUncompleted();
+    Mono<ToDo> updateToDo (String id, String text, boolean done);
 
-    ToDo updateToDo (String id, String text, boolean done);
-
-    List<ToDo> searchTermInToDo(String term);
+    Flux<ToDo> searchTermInToDo(String term);
 }

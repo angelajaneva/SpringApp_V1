@@ -5,8 +5,9 @@ import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.service.StudentService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 
 @RestController
@@ -20,16 +21,19 @@ public class StudentApi {
         this.studentService = studentService;
     }
 
+    @GetMapping("/students")
+    public Flux<Student> getAllStudents(){
+        return studentService.getAllStudents();
+    }
 
     //treba nesto sign in forma za da se zeme imeto
     @GetMapping("/student/{studentId}")
-    public String getName(@PathVariable String studentId) throws Exception {
-        Student student = studentService.findById(studentId).orElseThrow(Exception::new);
-        return student.getFirstName() + " " + student.getLastName();
+    public Mono<String> getName(@PathVariable String studentId) {
+        Mono<Student> studentMono = studentService.findById(studentId);
+        return studentMono.map(student -> student.getFirstName() + " " + student.getLastName());
     }
-
-    @GetMapping("/classes/{studentId}")
-    public List<Class> getClassesForStudent(@PathVariable String studentId){
-        return studentService.findClassesForStudent(studentId);
-    }
+//    @GetMapping("/classes/{studentId}")
+//    public List<Class> getClassesForStudent(@PathVariable String studentId){
+//        return studentService.findClassesForStudent(studentId);
+//    }
 }

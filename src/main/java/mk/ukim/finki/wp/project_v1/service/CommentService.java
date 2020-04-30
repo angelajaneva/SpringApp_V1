@@ -2,23 +2,23 @@ package mk.ukim.finki.wp.project_v1.service;
 
 import mk.ukim.finki.wp.project_v1.model.Comment;
 import org.springframework.data.domain.Page;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CommentService {
 
-    List<Comment> getAllComments();
+    Flux<Comment> getAllComments();
 
-    Comment save(Comment comment);
+    Mono<Comment> save(Comment comment);
 
-    Page<Comment> getAllComments(int page, int size);
+    Mono<Comment> findById(String commentId);
 
-    Optional<Comment> findById(long commentId);
+    Mono<Void> deleteById(String commentId);
 
-    void deleteById(long commentId);
-
-    List<Comment> findCommentsByQuestion_Id(String questionId);
+    Flux<Comment> findCommentsByQuestion_Id(String questionId);
 
 }
 

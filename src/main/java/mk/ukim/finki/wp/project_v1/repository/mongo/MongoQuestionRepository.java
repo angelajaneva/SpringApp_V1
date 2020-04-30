@@ -1,12 +1,12 @@
 package mk.ukim.finki.wp.project_v1.repository.mongo;
 
 import mk.ukim.finki.wp.project_v1.model.Question;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 
-import java.util.List;
 
-public interface MongoQuestionRepository extends MongoRepository<Question, String> {
+public interface MongoQuestionRepository extends ReactiveMongoRepository<Question, String> {
 
-    List<Question> getQuestionsByaClass_Id(String classId);
+    Flux<Question> getQuestionsByaClass_Id(String classId);
 
 }

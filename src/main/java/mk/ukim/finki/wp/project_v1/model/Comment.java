@@ -12,13 +12,12 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "comment")
+@Document(collection = "comments")
 public class Comment {
 
     @Id
-    @Field(value = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 
     @Field(value = "content")
     private String content;

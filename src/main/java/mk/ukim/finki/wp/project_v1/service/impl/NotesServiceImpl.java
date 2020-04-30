@@ -6,6 +6,8 @@ import mk.ukim.finki.wp.project_v1.service.NotesService;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,49 +24,44 @@ public class NotesServiceImpl implements NotesService {
     }
 
     @Override
-    public List<Note> getAllNotes() {
+    public Flux<Note> getAllNotes() {
         return notesRepository.getAllNotes();
     }
 
     @Override
-    public Note save(Note note) {
+    public Mono<Note> save(Note note) {
         return notesRepository.save(note);
     }
 
-    @Override
-    public Page<Note> getAllNotes(int page, int size) {
-        return getAllNotes(page, size);
-    }
 
     @Override
-    public Optional<Note> findById(String noteId) {
+    public Mono<Note> findById(String noteId) {
         return notesRepository.findById(noteId);
     }
 
     @Override
-    public void deleteById(String noteId) {
-        notesRepository.deleteById(noteId);
+    public Mono<Void> deleteById(String noteId) {
+        return notesRepository.deleteById(noteId);
     }
 
     @Override
-    public List<Note> getNotesByAClass(String classId) {
+    public Flux<Note> getNotesByAClass(String classId) {
         return notesRepository.getNotesByAClass(classId);
     }
 
     @Override
-    public Note updateNote(String id, String title, String description) {
-        Note note = notesRepository.findById(id).orElseThrow(RuntimeException::new);
-        note.setTitle(title);
-        note.setDescription(description);
-        notesRepository.save(note);
-        return note;
+    public Mono<Note> updateNote(String id, String title, String description) {
+        return notesRepository.findById(id).flatMap(note1 -> {
+            note1.setTitle(title);
+            note1.setDescription(description);
+            return notesRepository.save(note1);
+        });
     }
 
     @Override
-    public List<Note> searchNotes(String term) {
-        return this.getAllNotes().stream()
+    public Flux<Note> searchNotes(String term) {
+        return this.getAllNotes()
                 .filter(note -> note.getDescription().toLowerCase().contains(term)
-                        || note.getTitle().contains(term))
-                .collect(Collectors.toList());
+                        || note.getTitle().contains(term));
     }
 }
