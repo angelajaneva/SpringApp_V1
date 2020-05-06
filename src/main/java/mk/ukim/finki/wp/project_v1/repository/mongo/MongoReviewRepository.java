@@ -1,12 +1,19 @@
 package mk.ukim.finki.wp.project_v1.repository.mongo;
 
 import mk.ukim.finki.wp.project_v1.model.Review;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Flux;
 
-import java.util.List;
 
-public interface MongoReviewRepository extends MongoRepository<Review, Long>, Repository<Review, Long> {
+public interface MongoReviewRepository extends ReactiveMongoRepository<Review, String>, ReactiveCrudRepository<Review, String> {
 
-    List<Review> findAllByaClass_id(String classId);
+    Flux<Review> findAllByaClass_id(String classId);
+
+    @Query("{ id: { $exists: true }}")
+    Flux<Review> retrieveAllQuotesPaged(final Pageable page);
 }
+
+

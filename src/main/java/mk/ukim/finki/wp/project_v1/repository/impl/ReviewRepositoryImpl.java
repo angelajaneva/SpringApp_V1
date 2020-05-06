@@ -3,12 +3,11 @@ package mk.ukim.finki.wp.project_v1.repository.impl;
 import mk.ukim.finki.wp.project_v1.model.Review;
 import mk.ukim.finki.wp.project_v1.repository.ReviewRepository;
 import mk.ukim.finki.wp.project_v1.repository.mongo.MongoReviewRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ReviewRepositoryImpl implements ReviewRepository {
@@ -20,32 +19,32 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public List<Review> getAllReviews() {
+    public Flux<Review> getAllReviews() {
         return mongoReviewRepository.findAll();
     }
 
     @Override
-    public Review save(Review review) {
+    public Mono<Review> save(Review review) {
         return mongoReviewRepository.save(review);
     }
 
     @Override
-    public Page<Review> getAllReviews(int page, int size) {
-        return mongoReviewRepository.findAll(PageRequest.of(page, size));
+    public Flux<Review> getAllReviewsPaged(int page, int size) {
+        return mongoReviewRepository.retrieveAllQuotesPaged(PageRequest.of(page, size));
     }
 
     @Override
-    public Optional<Review> findById(Long reviewId) {
+    public Mono<Review> findById(String reviewId) {
         return mongoReviewRepository.findById(reviewId);
     }
 
     @Override
-    public void deleteById(Long reviewId) {
-        mongoReviewRepository.deleteById(reviewId);
+    public Mono<Void> deleteById(String reviewId) {
+        return mongoReviewRepository.deleteById(reviewId);
     }
 
     @Override
-    public List<Review> findAllByaClass_id(String classId) {
+    public Flux<Review> findAllByaClass_id(String classId) {
         return mongoReviewRepository.findAllByaClass_id(classId);
     }
 }

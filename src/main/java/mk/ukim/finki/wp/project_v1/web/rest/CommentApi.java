@@ -41,7 +41,6 @@ public class CommentApi {
 
         //vo service podobro e da stoi
         Comment comment = new Comment();
-        System.out.println(questionId);
 
         return questionService.findById(questionId).flatMap(question1 -> {
             comment.setQuestion(question1);

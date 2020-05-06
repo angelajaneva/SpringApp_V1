@@ -5,6 +5,8 @@ import mk.ukim.finki.wp.project_v1.repository.ReviewRepository;
 import mk.ukim.finki.wp.project_v1.service.ReviewService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,32 +21,32 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getAllReviews() {
+    public Flux<Review> getAllReviews() {
         return reviewRepository.getAllReviews();
     }
 
     @Override
-    public Review save(Review review) {
+    public Mono<Review> save(Review review) {
         return reviewRepository.save(review);
     }
 
     @Override
-    public Page<Review> getAllReviews(int page, int size) {
-        return reviewRepository.getAllReviews(page, size);
+    public Flux<Review> getAllReviewsPaged(int page, int size) {
+        return reviewRepository.getAllReviewsPaged(page, size);
     }
 
     @Override
-    public Optional<Review> findById(long reviewId) {
+    public Mono<Review> findById(String reviewId) {
         return reviewRepository.findById(reviewId);
     }
 
     @Override
-    public void deleteById(Long reviewId) {
-        reviewRepository.deleteById(reviewId);
+    public Mono<Void> deleteById(String reviewId) {
+        return reviewRepository.deleteById(reviewId);
     }
 
     @Override
-    public List<Review> findAllByaClass_id(String classId) {
+    public Flux<Review> findAllByaClass_id(String classId) {
         return reviewRepository.findAllByaClass_id(classId);
     }
 }

@@ -2,21 +2,23 @@ package mk.ukim.finki.wp.project_v1.repository;
 
 import mk.ukim.finki.wp.project_v1.model.Review;
 import org.springframework.data.domain.Page;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ReviewRepository {
 
-    List<Review> getAllReviews();
+    Flux<Review> getAllReviews();
 
-    Review save(Review review);
+    Mono<Review> save(Review review);
 
-    Page<Review> getAllReviews(int page, int size);
+    Flux<Review> getAllReviewsPaged(int page, int size);
 
-    Optional<Review> findById(Long reviewId);
+    Mono<Review> findById(String reviewId);
 
-    void deleteById(Long reviewId);
+    Mono<Void> deleteById(String reviewId);
 
-    List<Review> findAllByaClass_id(String classId);
+    Flux<Review> findAllByaClass_id(String classId);
 }
