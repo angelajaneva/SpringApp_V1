@@ -2,3 +2,12 @@ GET http://localhost:8080/notes
 
 ###
 
+POST http://localhost:8080/users/signin
+Content-Type: application/json
+
+{
+  "username": "student2",
+  "password": "123"
+}
+
+###
