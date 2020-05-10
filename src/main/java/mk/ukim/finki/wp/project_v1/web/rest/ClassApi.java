@@ -4,8 +4,9 @@ import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.service.ClassService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,13 +21,13 @@ public class ClassApi {
 
 
     @GetMapping("/{classId}")
-    public String getClassName(@PathVariable String classId) throws Exception {
-        Class AClass = classService.findById(classId).orElseThrow(Exception::new);
-        return AClass.getName();
+    public Mono<String> getClassName(@PathVariable String classId) {
+        Mono<Class> classMono = classService.findById(classId);
+        return classMono.map(Class::getName);
     }
 
     @GetMapping("/student/{username}")
-    public List<Class> findClassesByStudentUsername (@PathVariable String username){
+    public Flux<Class> findClassesByStudentUsername (@PathVariable String username){
         return classService.findClassesByStudents_username(username);
     }
 }

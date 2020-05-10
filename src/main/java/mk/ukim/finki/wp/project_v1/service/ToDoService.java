@@ -21,4 +21,8 @@ public interface ToDoService {
     Mono<ToDo> updateToDo (String id, String text, boolean done);
 
     Flux<ToDo> searchTermInToDo(String term);
+
+    Flux<ToDo> getAllByUsername(String username);
+
+    Mono<ToDo> create(String text, String username);
 }

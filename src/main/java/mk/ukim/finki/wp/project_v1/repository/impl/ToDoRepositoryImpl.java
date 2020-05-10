@@ -48,4 +48,9 @@ public class ToDoRepositoryImpl implements ToDoRepository {
     public Flux<ToDo> getUncompleted() {
         return mongoTodoRepository.getUncompleted();
     }
+
+    @Override
+    public Flux<ToDo> getAllByUsername(String username) {
+        return mongoTodoRepository.getAllByUser_Username(username);
+    }
 }

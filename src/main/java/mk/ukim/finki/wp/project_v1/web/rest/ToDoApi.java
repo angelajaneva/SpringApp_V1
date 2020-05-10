@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -43,6 +41,11 @@ public class ToDoApi {
         return toDoService.getUncompleted();
     }
 
+    @GetMapping("todos/{username}")
+    public Flux<ToDo> getAllByUsername(@PathVariable String username){
+        return toDoService.getAllByUsername(username);
+    }
+
     @PatchMapping("/todo/{todoId}")
     public Mono<ToDo> edit(@PathVariable String todoId, @RequestParam String text,
                      @RequestParam boolean done) {
@@ -51,15 +54,8 @@ public class ToDoApi {
 
     @PostMapping("/todo")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<ToDo> create(@RequestParam String text) {
-        ToDo toDo = new ToDo();
-
-        toDo.setText(text);
-        toDo.setCompleted(false);
-        toDo.setDate(LocalDate.now());
-
-
-        return toDoService.save(toDo);
+    public Mono<ToDo> create(@RequestParam String text, @RequestParam String username) {
+        return toDoService.create(text, username);
     }
 
     @DeleteMapping("/todo/{todoId}")

@@ -14,4 +14,6 @@ public interface MongoTodoRepository extends ReactiveMongoRepository<ToDo, Strin
     @Query(value =  "{ 'completed' : 'false'}")
     Flux<ToDo> getUncompleted();
 
+    Flux<ToDo> getAllByUser_Username(String username);
+
 }

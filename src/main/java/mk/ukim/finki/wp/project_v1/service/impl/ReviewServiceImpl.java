@@ -1,11 +1,9 @@
 package mk.ukim.finki.wp.project_v1.service.impl;
 
-import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Review;
 import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.repository.ClassRepository;
 import mk.ukim.finki.wp.project_v1.repository.ReviewRepository;
-import mk.ukim.finki.wp.project_v1.repository.StudentRepository;
 import mk.ukim.finki.wp.project_v1.repository.UserRepository;
 import mk.ukim.finki.wp.project_v1.service.ReviewService;
 import org.springframework.stereotype.Service;
@@ -53,8 +51,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Flux<Review> findAllByaClass_id(String classId) {
-        return reviewRepository.findAllByaClass_id(classId);
+    public Flux<Review> findAllByaClass_name(String className) {
+        return reviewRepository.findAllByaClass_name(className);
     }
 
     @Override
@@ -64,13 +62,13 @@ public class ReviewServiceImpl implements ReviewService {
 
         Student student = userRepository.findByUsername(username).getStudent();
 
+        return classRepository.findByName(className).flatMap(aClass -> {
+            review.setAClass(aClass);
             review.setStudent(student);
-            review.setAClass(classRepository.findByName(className));
             review.setText(text);
             review.setRated(rated);
             review.setCreatedOn(LocalDate.now());
-
             return reviewRepository.save(review);
-
+        });
     }
 }

@@ -46,4 +46,10 @@ public class Student {
         this.lastName = lastName;
     }
 
+    public Student(String id, String firstName, String lastName, List<Class> classes) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.classes = classes;
+    }
 }

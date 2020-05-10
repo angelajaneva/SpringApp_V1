@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.project_v1.service.impl;
 
+import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Question;
 import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.repository.ClassRepository;
@@ -60,12 +61,11 @@ public class QuestionServiceImpl implements QuestionService {
         Question question = new Question();
         Student student = userRepository.findByUsername(username).getStudent();
 
-
-        question.setStudent(student);
-        question.setAClass(classRepository.findById(classId).orElseThrow(RuntimeException::new));
-        question.setText(text);
-
-        return questionRepository.save(question);
-
+        return classRepository.findById(classId).flatMap(aClass -> {
+            question.setAClass(aClass);
+            question.setStudent(student);
+            question.setText(text);
+            return questionRepository.save(question);
+        });
     }
 }

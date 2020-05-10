@@ -32,4 +32,14 @@ public class ToDo {
 
     @Field(value = "completed")
     private boolean completed;
+
+    @Field(value = "user")
+    private User user;
+
+    public ToDo(LocalDate date, String text, boolean completed, User user) {
+        this.date = date;
+        this.text = text;
+        this.completed = completed;
+        this.user = user;
+    }
 }

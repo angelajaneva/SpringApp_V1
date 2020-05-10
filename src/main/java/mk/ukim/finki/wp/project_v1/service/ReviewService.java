@@ -18,7 +18,7 @@ public interface ReviewService  {
 
     Mono<Void> deleteById(String reviewId);
 
-    Flux<Review> findAllByaClass_id(String classId);
+    Flux<Review> findAllByaClass_name(String className);
 
     Mono<Review> createReview(String text, int rated, String className, String username);
 }

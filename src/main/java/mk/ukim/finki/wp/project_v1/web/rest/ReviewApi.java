@@ -1,8 +1,6 @@
 package mk.ukim.finki.wp.project_v1.web.rest;
 
-import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Review;
-import mk.ukim.finki.wp.project_v1.service.ClassService;
 import mk.ukim.finki.wp.project_v1.service.ReviewService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +14,10 @@ import reactor.core.publisher.Mono;
 public class ReviewApi {
 
     private final ReviewService reviewService;
-    private final ClassService classService;
 
 
-    public ReviewApi(ReviewService reviewService, ClassService classService) {
+    public ReviewApi(ReviewService reviewService) {
         this.reviewService = reviewService;
-        this.classService = classService;
     }
 
     @GetMapping("/reviews")
@@ -38,8 +34,9 @@ public class ReviewApi {
     @GetMapping(value = "/reviews", params = "term")
     public Flux<Review> getReviewsForClasses(@RequestParam String className) {
 
-        Class aClass = classService.findByName(className);
-        return reviewService.findAllByaClass_id(aClass.getId());
+//        Mono<Class> classMono = classService.findByName(className);
+//        Mono<String> id = classMono.map(Class::getId); i id.toString()
+        return reviewService.findAllByaClass_name(className);
     }
 
     @PostMapping("/review/new")

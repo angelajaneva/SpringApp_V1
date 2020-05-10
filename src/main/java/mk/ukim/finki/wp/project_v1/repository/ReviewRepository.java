@@ -1,12 +1,9 @@
 package mk.ukim.finki.wp.project_v1.repository;
 
 import mk.ukim.finki.wp.project_v1.model.Review;
-import org.springframework.data.domain.Page;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 
 public interface ReviewRepository {
 
@@ -20,5 +17,5 @@ public interface ReviewRepository {
 
     Mono<Void> deleteById(String reviewId);
 
-    Flux<Review> findAllByaClass_id(String classId);
+    Flux<Review> findAllByaClass_name(String className);
 }

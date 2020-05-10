@@ -3,11 +3,10 @@ package mk.ukim.finki.wp.project_v1.service.impl;
 import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.repository.ClassRepository;
 import mk.ukim.finki.wp.project_v1.service.ClassService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClassServiceImpl implements ClassService {
@@ -19,37 +18,32 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<Class> getAllClasses() {
+    public Flux<Class> getAllClasses() {
         return classRepository.getAllClasses();
     }
 
     @Override
-    public Class save(Class aClass) {
+    public Mono<Class> save(Class aClass) {
         return classRepository.save(aClass);
     }
 
     @Override
-    public Page<Class> getAllClasses(int page, int size) {
-        return classRepository.getAllClasses(page, size);
-    }
-
-    @Override
-    public Optional<Class> findById(String classId) {
+    public Mono<Class> findById(String classId) {
         return classRepository.findById(classId);
     }
 
     @Override
-    public void deleteById(String classId) {
-        classRepository.deleteById(classId);
+    public Mono<Void> deleteById(String classId) {
+        return classRepository.deleteById(classId);
     }
 
     @Override
-    public List<Class> findClassesByStudents_username(String username) {
+    public Flux<Class> findClassesByStudents_username(String username) {
         return classRepository.findClassesByStudents_username(username);
     }
 
     @Override
-    public Class findByName(String className) {
+    public Mono<Class> findByName(String className) {
         return classRepository.findByName(className);
     }
 }

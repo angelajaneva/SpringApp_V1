@@ -1,6 +1,5 @@
 package mk.ukim.finki.wp.project_v1.service.impl;
 
-import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.repository.StudentRepository;
 import mk.ukim.finki.wp.project_v1.service.StudentService;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService{

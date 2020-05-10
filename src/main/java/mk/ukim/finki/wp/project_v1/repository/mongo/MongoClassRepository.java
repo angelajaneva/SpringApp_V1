@@ -1,14 +1,15 @@
 package mk.ukim.finki.wp.project_v1.repository.mongo;
 
 import mk.ukim.finki.wp.project_v1.model.Class;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 
-public interface MongoClassRepository extends MongoRepository<Class, String> {
+public interface MongoClassRepository extends ReactiveMongoRepository<Class, String> {
 
-    List<Class> findClassesByStudents_username(String username);
+    Flux<Class> findClassesByStudents_username(String username);
 
-    Class findByName(String className);
+    Mono<Class> findByName(String className);
 }

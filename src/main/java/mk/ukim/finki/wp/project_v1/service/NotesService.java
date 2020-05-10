@@ -20,4 +20,6 @@ public interface NotesService {
     Mono<Note> updateNote(String id, String title, String description);
 
     Flux<Note> searchNotes (String term);
+
+    Mono<Note> createNote( String title,  String description, String classId);
 }

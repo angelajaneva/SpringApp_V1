@@ -1,13 +1,8 @@
 package mk.ukim.finki.wp.project_v1.web.rest;
 
 
-import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Question;
-import mk.ukim.finki.wp.project_v1.model.Student;
-import mk.ukim.finki.wp.project_v1.service.ClassService;
 import mk.ukim.finki.wp.project_v1.service.QuestionService;
-import mk.ukim.finki.wp.project_v1.service.StudentService;
-import mk.ukim.finki.wp.project_v1.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +15,9 @@ import reactor.core.publisher.Mono;
 public class QuestionApi {
 
     private final QuestionService questionService;
-    private final ClassService classService;
-    private final UserService userService;
 
-    public QuestionApi(QuestionService questionService, ClassService classService, UserService userService) {
+    public QuestionApi(QuestionService questionService) {
         this.questionService = questionService;
-        this.classService = classService;
-        this.userService = userService;
     }
 
     @GetMapping("/questions")

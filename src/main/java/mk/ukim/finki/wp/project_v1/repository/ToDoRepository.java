@@ -21,4 +21,7 @@ public interface ToDoRepository {
     Flux<ToDo> getCompleted();
 
     Flux<ToDo> getUncompleted();
+
+    Flux<ToDo> getAllByUsername(String username);
+
 }

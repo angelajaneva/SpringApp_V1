@@ -1,25 +1,21 @@
 package mk.ukim.finki.wp.project_v1.repository;
 
-import org.springframework.data.domain.Page;
-
-import java.util.List;
-import java.util.Optional;
 import mk.ukim.finki.wp.project_v1.model.Class;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface ClassRepository {
 
-    List<Class> getAllClasses();
+    Flux<Class> getAllClasses();
 
-    Class save(Class aClass);
+    Mono<Class> save(Class aClass);
 
-    Page<Class> getAllClasses(int page, int size);
+    Mono<Class> findById(String classId);
 
-    Optional<Class> findById(String classId);
+    Mono<Void> deleteById(String classId);
 
-    void deleteById(String classId);
+    Flux<Class> findClassesByStudents_username(String username);
 
-    List<Class> findClassesByStudents_username(String username);
-
-    Class findByName(String className);
+    Mono<Class> findByName(String className);
 
 }

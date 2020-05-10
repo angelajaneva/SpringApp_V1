@@ -44,7 +44,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public Flux<Review> findAllByaClass_id(String classId) {
-        return mongoReviewRepository.findAllByaClass_id(classId);
+    public Flux<Review> findAllByaClass_name(String className) {
+        return mongoReviewRepository.findAllByaClass_name(className);
     }
 }

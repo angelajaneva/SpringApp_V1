@@ -1,26 +1,25 @@
 package mk.ukim.finki.wp.project_v1.service.impl;
 
+import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Note;
+import mk.ukim.finki.wp.project_v1.repository.ClassRepository;
 import mk.ukim.finki.wp.project_v1.repository.NotesRepository;
 import mk.ukim.finki.wp.project_v1.service.NotesService;
-import org.aspectj.weaver.ast.Not;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class NotesServiceImpl implements NotesService {
 
 
     private final NotesRepository notesRepository;
+    private final ClassRepository classRepository;
 
-    public NotesServiceImpl(NotesRepository notesRepository) {
+    public NotesServiceImpl(NotesRepository notesRepository, ClassRepository classRepository) {
         this.notesRepository = notesRepository;
+        this.classRepository = classRepository;
     }
 
     @Override
@@ -63,5 +62,17 @@ public class NotesServiceImpl implements NotesService {
         return this.getAllNotes()
                 .filter(note -> note.getDescription().toLowerCase().contains(term)
                         || note.getTitle().contains(term));
+    }
+
+    @Override
+    public Mono<Note> createNote(String title, String description, String classId) {
+        Note note = new Note();
+        return classRepository.findById(classId).flatMap(aClass -> {
+            note.setTitle(title);
+            note.setDescription(description);
+            note.setAClass(aClass);
+            return notesRepository.save(note);
+        });
+
     }
 }

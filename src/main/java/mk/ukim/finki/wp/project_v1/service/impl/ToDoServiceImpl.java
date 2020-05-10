@@ -2,23 +2,23 @@ package mk.ukim.finki.wp.project_v1.service.impl;
 
 import mk.ukim.finki.wp.project_v1.model.ToDo;
 import mk.ukim.finki.wp.project_v1.repository.ToDoRepository;
+import mk.ukim.finki.wp.project_v1.repository.UserRepository;
 import mk.ukim.finki.wp.project_v1.service.ToDoService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
 
     private final ToDoRepository toDoRepository;
+    private final UserRepository userRepository;
 
-    public ToDoServiceImpl(ToDoRepository toDoRepository) {
+    public ToDoServiceImpl(ToDoRepository toDoRepository, UserRepository userRepository) {
         this.toDoRepository = toDoRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -67,6 +67,24 @@ public class ToDoServiceImpl implements ToDoService {
 
         return this.getAllTodos()
                 .filter(toDo -> toDo.getText().toLowerCase().contains(term));
+    }
+
+    @Override
+    public Flux<ToDo> getAllByUsername(String username) {
+        return toDoRepository.getAllByUsername(username);
+    }
+
+    @Override
+    public Mono<ToDo> create(String text, String username) {
+        ToDo toDo = new ToDo();
+
+        toDo.setUser(userRepository.findByUsername(username));
+        toDo.setText(text);
+        toDo.setCompleted(false);
+        toDo.setDate(LocalDate.now());
+
+        return toDoRepository.save(toDo);
+
     }
 }
 

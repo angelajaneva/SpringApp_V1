@@ -1,10 +1,7 @@
 package mk.ukim.finki.wp.project_v1.web.rest;
 
 
-import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Note;
-import mk.ukim.finki.wp.project_v1.model.Student;
-import mk.ukim.finki.wp.project_v1.service.ClassService;
 import mk.ukim.finki.wp.project_v1.service.NotesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 
 @RestController
@@ -21,11 +17,9 @@ import java.util.List;
 public class NoteApi {
 
     private final NotesService notesService;
-    private final ClassService classService;
 
-    public NoteApi(NotesService notesService, ClassService classService) {
+    public NoteApi(NotesService notesService) {
         this.notesService = notesService;
-        this.classService = classService;
     }
 
     @GetMapping("/notes")
@@ -47,14 +41,7 @@ public class NoteApi {
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Note> createNote(@RequestParam String title, @RequestParam String description,
                            @RequestParam String classId) {
-        Note note = new Note();
-        Class aClass = classService.findById(classId).orElseThrow(RuntimeException::new);
-        note.setTitle(title);
-        note.setDescription(description);
-        note.setAClass(aClass);
-
-        return notesService.save(note);
-
+        return notesService.createNote(title, description, classId);
     }
 
     @PatchMapping("/note/edit")

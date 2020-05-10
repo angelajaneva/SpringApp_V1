@@ -7,9 +7,9 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 
 
-public interface MongoReviewRepository extends ReactiveMongoRepository<Review, String>  {
+public interface MongoReviewRepository extends ReactiveMongoRepository<Review, String> {
 
-    Flux<Review> findAllByaClass_id(String classId);
+    Flux<Review> findAllByaClass_name(String className);
 
     @Query("{ id: { $exists: true }}")
     Flux<Review> retrieveAllQuotesPaged(final Pageable page);
