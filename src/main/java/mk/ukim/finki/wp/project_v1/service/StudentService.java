@@ -21,6 +21,6 @@ public interface StudentService {
 
     Mono<Void> deleteById(String studentId);
 
-//    Flux<Class> findClassesForStudent(String studentId);
+    Mono<Student> findByUsername(String username);
 
 }

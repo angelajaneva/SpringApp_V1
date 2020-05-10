@@ -47,6 +47,11 @@ public class StudentServiceImpl implements StudentService{
         return studentRepository.deleteById(studentId);
     }
 
+    @Override
+    public Mono<Student> findByUsername(String username) {
+        return studentRepository.findByUsername(username);
+    }
+
 //    @Override
 //    public Flux<Class> findClassesForStudent(String studentId) {
 //        return studentRepository.findClassesForStudent(studentId);

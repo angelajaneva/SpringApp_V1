@@ -7,13 +7,12 @@ import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.service.ClassService;
 import mk.ukim.finki.wp.project_v1.service.QuestionService;
 import mk.ukim.finki.wp.project_v1.service.StudentService;
+import mk.ukim.finki.wp.project_v1.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -22,12 +21,12 @@ public class QuestionApi {
 
     private final QuestionService questionService;
     private final ClassService classService;
-    private final StudentService studentService;
+    private final UserService userService;
 
-    public QuestionApi(QuestionService questionService, ClassService classService, StudentService studentService) {
+    public QuestionApi(QuestionService questionService, ClassService classService, UserService userService) {
         this.questionService = questionService;
         this.classService = classService;
-        this.studentService = studentService;
+        this.userService = userService;
     }
 
     @GetMapping("/questions")
@@ -48,19 +47,9 @@ public class QuestionApi {
 
     @PostMapping("/question")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Question> createQuestion(@RequestParam String classId, @RequestParam String text) {
-        Question question = new Question();
-
-
-        //studentot treba da se srede preku authentication
-       return studentService.findById("S17001").flatMap(student1 -> {
-            question.setStudent(student1);
-            Class aClass = classService.findById(classId).orElseThrow(RuntimeException::new);
-            question.setAClass(aClass);
-            question.setText(text);
-
-            return questionService.save(question);
-        });
+    public Mono<Question> createQuestion(@RequestParam String classId, @RequestParam String text,
+                                         @RequestParam String username) {
+        return questionService.createQuestion(classId, text, username);
     }
 
     @DeleteMapping("/questions/{questionId}")

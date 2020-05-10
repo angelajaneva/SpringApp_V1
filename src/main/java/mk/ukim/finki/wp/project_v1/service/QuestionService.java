@@ -20,4 +20,5 @@ public interface QuestionService {
 
     Flux<Question> findQuestionByAClass_Id(String AClass);
 
+    Mono<Question> createQuestion(String classId, String text, String username);
 }

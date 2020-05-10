@@ -20,4 +20,5 @@ public interface ReviewService  {
 
     Flux<Review> findAllByaClass_id(String classId);
 
+    Mono<Review> createReview(String text, int rated, String className, String username);
 }

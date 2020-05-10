@@ -4,13 +4,11 @@ import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Review;
 import mk.ukim.finki.wp.project_v1.service.ClassService;
 import mk.ukim.finki.wp.project_v1.service.ReviewService;
-import mk.ukim.finki.wp.project_v1.service.StudentService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -19,13 +17,11 @@ public class ReviewApi {
 
     private final ReviewService reviewService;
     private final ClassService classService;
-    private final StudentService studentService;
 
 
-    public ReviewApi(ReviewService reviewService, ClassService classService, StudentService studentService) {
+    public ReviewApi(ReviewService reviewService, ClassService classService) {
         this.reviewService = reviewService;
         this.classService = classService;
-        this.studentService = studentService;
     }
 
     @GetMapping("/reviews")
@@ -48,20 +44,7 @@ public class ReviewApi {
 
     @PostMapping("/review/new")
     public Mono<Review> createReview(@RequestParam String text, @RequestParam int rated,
-                                     @RequestParam String className) {
-
-        Review review = new Review();
-
-        //treba so security da se rese sega neka go vaka
-        return studentService.findById("S17001").flatMap(student -> {
-            review.setStudent(student);
-            Class aClass = classService.findByName(className);
-            review.setAClass(aClass);
-            review.setText(text);
-            review.setRated(rated);
-            review.setCreatedOn(LocalDate.now());
-            return reviewService.save(review);
-        });
-
+                                     @RequestParam String className, @RequestParam String username) {
+        return reviewService.createReview(text, rated, className, username);
     }
 }

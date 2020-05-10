@@ -25,8 +25,8 @@ public class ClassApi {
         return AClass.getName();
     }
 
-    @GetMapping("/student/{studentId}")
-    public List<Class> findClassesByStudentsId (@PathVariable String studentId){
-        return classService.findClassesByStudents_Id(studentId);
+    @GetMapping("/student/{username}")
+    public List<Class> findClassesByStudentUsername (@PathVariable String username){
+        return classService.findClassesByStudents_username(username);
     }
 }

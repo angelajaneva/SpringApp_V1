@@ -45,8 +45,8 @@ public class ClassRepositoryImpl implements ClassRepository {
     }
 
     @Override
-    public List<Class> findClassesByStudents_Id(String studentId) {
-        return mongoClassRepository.findClassesByStudents_Id(studentId);
+    public List<Class> findClassesByStudents_username(String username) {
+        return mongoClassRepository.findClassesByStudents_username(username);
     }
 
     @Override

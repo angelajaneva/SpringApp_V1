@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MongoClassRepository extends MongoRepository<Class, String> {
 
-    List<Class> findClassesByStudents_Id(String studentId);
+    List<Class> findClassesByStudents_username(String username);
+
     Class findByName(String className);
 }

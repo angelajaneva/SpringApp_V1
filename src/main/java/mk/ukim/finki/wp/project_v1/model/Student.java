@@ -32,16 +32,14 @@ public class Student {
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Class> classes;
 
+    @Field(value = "username")
+    private String username;
+
+
 //    @OneToMany
 //    private List<Note> notes;
 //    @OneToMany
 //    private List<Question> questions;
-
-    public void addClass(Class aClass){
-        this.getClasses().add(aClass);
-        aClass.getStudents().add(this);
-    }
-
 
     public Student(String firstName, String lastName) {
         this.firstName = firstName;

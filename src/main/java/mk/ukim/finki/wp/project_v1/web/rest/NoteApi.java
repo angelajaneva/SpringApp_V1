@@ -58,7 +58,7 @@ public class NoteApi {
     }
 
     @PatchMapping("/note/edit")
-    public Mono<Note> editNote(@RequestParam String noteId, @RequestParam String classId, @RequestParam String title,
+    public Mono<Note> editNote(@RequestParam String noteId, @RequestParam String title,
                                @RequestParam String description) {
 
         return notesService.updateNote(noteId, title, description);

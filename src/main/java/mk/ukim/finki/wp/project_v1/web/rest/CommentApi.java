@@ -1,16 +1,17 @@
 package mk.ukim.finki.wp.project_v1.web.rest;
 
 import mk.ukim.finki.wp.project_v1.model.Comment;
-import mk.ukim.finki.wp.project_v1.model.Question;
+import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.service.CommentService;
 import mk.ukim.finki.wp.project_v1.service.QuestionService;
+import mk.ukim.finki.wp.project_v1.service.StudentService;
+import mk.ukim.finki.wp.project_v1.service.UserService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -18,11 +19,9 @@ import java.util.List;
 public class CommentApi {
 
     private final CommentService commentService;
-    private final QuestionService questionService;
 
-    public CommentApi(CommentService commentService, QuestionService questionService) {
+    public CommentApi(CommentService commentService) {
         this.commentService = commentService;
-        this.questionService = questionService;
     }
 
     @GetMapping("/comments")
@@ -36,17 +35,8 @@ public class CommentApi {
     }
 
     @PostMapping("/comments/{questionId}")
-    public Mono<Comment> newComment(@PathVariable String questionId, @RequestParam String content) {
-        //@RequestParam String studentId
-
-        //vo service podobro e da stoi
-        Comment comment = new Comment();
-
-        return questionService.findById(questionId).flatMap(question1 -> {
-            comment.setQuestion(question1);
-            comment.setContent(content);
-            comment.setCreatedOn(LocalDate.now());
-            return commentService.save(comment);
-        });
+    public Mono<Comment> newComment(@PathVariable String questionId, @RequestParam String content,
+        @RequestParam String username) {
+        return commentService.newComment(questionId, content, username);
     }
 }

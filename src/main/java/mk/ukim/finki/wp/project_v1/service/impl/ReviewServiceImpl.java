@@ -1,23 +1,30 @@
 package mk.ukim.finki.wp.project_v1.service.impl;
 
+import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Review;
+import mk.ukim.finki.wp.project_v1.model.Student;
+import mk.ukim.finki.wp.project_v1.repository.ClassRepository;
 import mk.ukim.finki.wp.project_v1.repository.ReviewRepository;
+import mk.ukim.finki.wp.project_v1.repository.StudentRepository;
+import mk.ukim.finki.wp.project_v1.repository.UserRepository;
 import mk.ukim.finki.wp.project_v1.service.ReviewService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final ClassRepository classRepository;
+    private final UserRepository userRepository;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ClassRepository classRepository, UserRepository userRepository) {
         this.reviewRepository = reviewRepository;
+        this.classRepository = classRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -48,5 +55,22 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Flux<Review> findAllByaClass_id(String classId) {
         return reviewRepository.findAllByaClass_id(classId);
+    }
+
+    @Override
+    public Mono<Review> createReview(String text, int rated, String className, String username) {
+
+        Review review = new Review();
+
+        Student student = userRepository.findByUsername(username).getStudent();
+
+            review.setStudent(student);
+            review.setAClass(classRepository.findByName(className));
+            review.setText(text);
+            review.setRated(rated);
+            review.setCreatedOn(LocalDate.now());
+
+            return reviewRepository.save(review);
+
     }
 }

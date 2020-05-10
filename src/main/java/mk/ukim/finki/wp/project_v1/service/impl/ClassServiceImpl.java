@@ -44,8 +44,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<Class> findClassesByStudents_Id(String studentId) {
-        return classRepository.findClassesByStudents_Id(studentId);
+    public List<Class> findClassesByStudents_username(String username) {
+        return classRepository.findClassesByStudents_username(username);
     }
 
     @Override

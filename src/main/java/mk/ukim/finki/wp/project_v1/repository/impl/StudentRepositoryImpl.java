@@ -1,17 +1,13 @@
 package mk.ukim.finki.wp.project_v1.repository.impl;
 
-import mk.ukim.finki.wp.project_v1.model.Class;
 import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.repository.StudentRepository;
 import mk.ukim.finki.wp.project_v1.repository.mongo.MongoStudentRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class StudentRepositoryImpl implements StudentRepository {
@@ -45,6 +41,11 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public Mono<Void> deleteById(String studentId) {
         return mongoStudentRepository.deleteById(studentId);
+    }
+
+    @Override
+    public Mono<Student> findByUsername(String username) {
+        return mongoStudentRepository.findByUsername(username);
     }
 
 //    @Override

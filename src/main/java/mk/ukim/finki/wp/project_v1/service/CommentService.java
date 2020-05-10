@@ -20,6 +20,8 @@ public interface CommentService {
 
     Flux<Comment> findCommentsByQuestion_Id(String questionId);
 
+    Mono<Comment> newComment(String questionId, String content, String username);
+
 }
 
 

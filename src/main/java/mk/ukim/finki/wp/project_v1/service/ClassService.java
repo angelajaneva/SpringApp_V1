@@ -18,7 +18,7 @@ public interface ClassService {
 
     void deleteById(String classId);
 
-    List<Class> findClassesByStudents_Id(String studentId);
+    List<Class> findClassesByStudents_username(String username);
 
     Class findByName(String className);
 
