@@ -3,12 +3,10 @@ package mk.ukim.finki.wp.project_v1.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -17,8 +15,8 @@ import java.util.List;
 @Document(collection = "students")
 public class Student {
 
-    @Field(value = "id")
     @Id
+    @Field(value = "id")
     private String id;
 
     @Field(value = "firstName")
@@ -28,28 +26,10 @@ public class Student {
     private String lastName;
 
     @Field(value = "classes")
-    @ManyToMany(fetch = FetchType.EAGER)
-    @NotFound(action = NotFoundAction.IGNORE)
     private List<Class> classes;
 
     @Field(value = "username")
     private String username;
 
 
-//    @OneToMany
-//    private List<Note> notes;
-//    @OneToMany
-//    private List<Question> questions;
-
-    public Student(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Student(String id, String firstName, String lastName, List<Class> classes) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.classes = classes;
-    }
 }

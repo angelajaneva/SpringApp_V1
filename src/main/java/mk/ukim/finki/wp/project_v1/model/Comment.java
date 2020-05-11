@@ -3,10 +3,10 @@ package mk.ukim.finki.wp.project_v1.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class Comment {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Field(value = "content")
@@ -26,10 +25,8 @@ public class Comment {
     private LocalDate createdOn;
 
     @Field(value = "question")
-    @ManyToOne
     private Question question;
 
     @Field(value = "student")
-    @ManyToOne
     private Student student;
 }

@@ -1,14 +1,10 @@
 package mk.ukim.finki.wp.project_v1.model;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.time.LocalDate;
 
 
@@ -20,8 +16,6 @@ import java.time.LocalDate;
 public class ToDo {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
     @Field(value = "date")
@@ -36,10 +30,4 @@ public class ToDo {
     @Field(value = "user")
     private User user;
 
-    public ToDo(LocalDate date, String text, boolean completed, User user) {
-        this.date = date;
-        this.text = text;
-        this.completed = completed;
-        this.user = user;
-    }
 }
