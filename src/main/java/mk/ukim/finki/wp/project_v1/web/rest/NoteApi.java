@@ -4,11 +4,11 @@ package mk.ukim.finki.wp.project_v1.web.rest;
 import mk.ukim.finki.wp.project_v1.model.Note;
 import mk.ukim.finki.wp.project_v1.service.NotesService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 
 
 @RestController
@@ -40,7 +40,7 @@ public class NoteApi {
     @PostMapping("/note")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Note> createNote(@RequestParam String title, @RequestParam String description,
-                           @RequestParam String classId) {
+                                 @RequestParam String classId) {
         return notesService.createNote(title, description, classId);
     }
 
@@ -51,6 +51,7 @@ public class NoteApi {
         return notesService.updateNote(noteId, title, description);
     }
 
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{noteId}")
     public Mono<Void> deleteNote(@PathVariable String noteId) {
         return notesService.deleteById(noteId);
