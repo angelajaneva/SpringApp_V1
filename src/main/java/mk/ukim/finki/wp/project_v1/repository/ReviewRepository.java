@@ -4,6 +4,8 @@ import mk.ukim.finki.wp.project_v1.model.Review;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 
 public interface ReviewRepository {
 
@@ -18,4 +20,6 @@ public interface ReviewRepository {
     Mono<Void> deleteById(String reviewId);
 
     Flux<Review> findAllByaClass_name(String className);
+
+     List<Review> findReviewsByCriteria(String searchCriteria);
 }

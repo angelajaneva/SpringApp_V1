@@ -31,6 +31,7 @@ public class JwtTokenProvider {
      * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
      * microservices environment, this key would be kept on a config-server.
      */
+
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secretKey = "@asd43KSD$#0k1234ESD345sdgDVFTGCS";
 
@@ -62,10 +63,10 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder()//
-                .setClaims(claims)//
-                .setIssuedAt(now)//
-                .setExpiration(validity)//
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, this.secretKey)//
                 .compact();
     }

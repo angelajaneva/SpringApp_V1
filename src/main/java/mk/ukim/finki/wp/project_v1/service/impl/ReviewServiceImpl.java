@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -70,5 +71,10 @@ public class ReviewServiceImpl implements ReviewService {
             review.setCreatedOn(LocalDate.now());
             return reviewRepository.save(review);
         });
+    }
+
+    @Override
+    public List<Review> findReviewsByCriteria(String searchCriteria) {
+        return reviewRepository.findReviewsByCriteria(searchCriteria);
     }
 }

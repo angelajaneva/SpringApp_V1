@@ -44,28 +44,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/users/signin").permitAll()
                 .antMatchers("/notes/**", "note/**").permitAll()
-                .antMatchers("/questions/**","/question/**").permitAll()
-                .antMatchers("/reviews/**","/review/**").permitAll()
-                .antMatchers("/todos/**","/todo/**").permitAll()
+                .antMatchers("/questions/**", "/question/**").permitAll()
+                .antMatchers("/reviews/**", "/review/**").permitAll()
+                .antMatchers("/todos/**", "/todo/**").permitAll()
                 .antMatchers("/comments/**").permitAll();
-//                // Disallow everything else..
-//                .anyRequest().authenticated();
+        // Disallow everything else..
+        // .anyRequest().authenticated();
 
-//
-//        // If a user try to access a resource without having enough permissions
+
+        // If a user try to access a resource without having enough permissions
         http.exceptionHandling().accessDeniedPage("/login");
-//
+
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
         // Optional, if you want to test the API from a browser
-         http.httpBasic();
+        http.httpBasic();
     }
 
     @Override
     public void configure(WebSecurity web) {
         // Allow swagger to be accessed without authentication
-        web.ignoring().antMatchers("/users/signin");//
+        web.ignoring().antMatchers("/users/signin");
     }
 
     @Bean
@@ -75,8 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public FilterRegistrationBean platformCorsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         CorsConfiguration configAutenticacao = new CorsConfiguration();
         configAutenticacao.setAllowCredentials(true);

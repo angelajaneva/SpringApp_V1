@@ -5,6 +5,8 @@ import mk.ukim.finki.wp.project_v1.model.Review;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 
 public interface ReviewService  {
 
@@ -21,4 +23,7 @@ public interface ReviewService  {
     Flux<Review> findAllByaClass_name(String className);
 
     Mono<Review> createReview(String text, int rated, String className, String username);
+
+    List<Review> findReviewsByCriteria(String searchCriteria);
+
 }

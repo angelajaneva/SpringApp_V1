@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -44,4 +46,11 @@ public class ReviewApi {
                                      @RequestParam String className, @RequestParam String username) {
         return reviewService.createReview(text, rated, className, username);
     }
+
+
+    @GetMapping(value = "reviews/search", params = "criteria")
+    List<Review> searchReviews(@RequestParam String criteria){
+        return reviewService.findReviewsByCriteria(criteria);
+    }
+
 }
