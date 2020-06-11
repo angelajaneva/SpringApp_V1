@@ -51,7 +51,7 @@ public class NoteApi {
         return notesService.updateNote(noteId, title, description);
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{noteId}")
     public Mono<Void> deleteNote(@PathVariable String noteId) {
         return notesService.deleteById(noteId);
