@@ -1,6 +1,7 @@
 package mk.ukim.finki.wp.project_v1.service.impl;
 
 import mk.ukim.finki.wp.project_v1.model.Role;
+import mk.ukim.finki.wp.project_v1.model.Student;
 import mk.ukim.finki.wp.project_v1.model.User;
 import mk.ukim.finki.wp.project_v1.model.exception.CustomException;
 import mk.ukim.finki.wp.project_v1.repository.UserRepository;
@@ -67,6 +68,15 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
+    }
+
+    @Override
+    public User createNewUser(String name, String surname, String username, String password) {
+        User user = new User(username, passwordEncoder.encode(password), new Student(), new ArrayList<>());
+        user.getRoles().add(Role.ROLE_CLIENT);
+        user.getStudent().setFirstName(name);
+        user.getStudent().setLastName(surname);
+        return userRepository.save(user);
     }
 
 

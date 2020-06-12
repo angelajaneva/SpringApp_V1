@@ -15,4 +15,6 @@ public interface UserService {
     String signup(User user);
 
     User findByUsername(String username);
+
+    User createNewUser(String name, String surname, String username, String password);
 }

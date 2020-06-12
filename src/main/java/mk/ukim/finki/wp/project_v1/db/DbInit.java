@@ -119,5 +119,7 @@
 //        toDoRepository.save(toDo24);
 //        toDoRepository.save(toDo25);
 //
+//        User user = new User("admin", passwordEncoder.encode("admin"), new Student(), new ArrayList<>());
+//        userRepository.save(user);
 //    }
 //}

@@ -30,10 +30,11 @@ public class UserApi {
         return userService.signin(u.getUsername(), u.getPassword());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/signup")
-    public String signup(@RequestBody User user) {
-        return userService.signup(user);
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/create")
+    public User createNewUser(@RequestParam String name, @RequestParam String surname,
+                              @RequestParam String username, @RequestParam String password) {
+        return userService.createNewUser(name, surname, username, password);
     }
 }
 
